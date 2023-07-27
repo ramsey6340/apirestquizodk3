@@ -1,4 +1,4 @@
-package com.group3.apirestquiz.models;
+package com.groupe3.apirestquizodk3.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

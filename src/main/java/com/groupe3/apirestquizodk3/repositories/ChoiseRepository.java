@@ -1,6 +1,6 @@
 package com.groupe3.apirestquizodk3.repositories;
 
-import com.group3.apirestquiz.models.Choise;
+import com.groupe3.apirestquizodk3.models.Choise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
