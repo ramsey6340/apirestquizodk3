@@ -59,7 +59,7 @@ public class QuizService {
         return quizRepository.findByCreationDate(creationDate);
     }
 
-    public List<Quiz> getQuizzesByUserUserIdAndQuizId(Long userId, Long quizId) {
+    public Optional<Quiz> getQuizzesByUserUserIdAndQuizId(Long userId, Long quizId) {
         return quizRepository.findByUserUserIdAndQuizId(quizId,userId);
     }
 }

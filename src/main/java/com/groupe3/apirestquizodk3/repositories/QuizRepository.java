@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
@@ -27,5 +28,6 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
     List<Quiz> findByUserUserId(Long userId);
 
-    List<Quiz> findByUserUserIdAndQuizId(Long quizId, Long userId);
+    //******************************************************************************************return une quiz
+    Optional<Quiz> findByUserUserIdAndQuizId(Long userId, Long quizId);
 }

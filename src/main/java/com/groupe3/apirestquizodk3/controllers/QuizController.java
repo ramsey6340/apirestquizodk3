@@ -44,8 +44,8 @@ public class QuizController {
     }
     @Operation(summary = "Ceci est la methode de l'endpoint pour recuperer un quiz precis d'un utilisateur precis")
     @GetMapping("/users/{userId}/quizzes/{quizId}")
-    public ResponseEntity<List<Quiz>> getQuizzesByUserUserIdAndQuizId(@PathVariable Long userId, @PathVariable Long quizId) {
-        List<Quiz> quizze = quizService.getQuizzesByUserUserIdAndQuizId(userId, quizId);
+    public ResponseEntity<Optional<Quiz>> getQuizzesByUserUserIdAndQuizId(@PathVariable Long userId, @PathVariable Long quizId) {
+        Optional<Quiz> quizze = quizService.getQuizzesByUserUserIdAndQuizId(userId, quizId);
         return new ResponseEntity<>(quizze, HttpStatus.OK);
     }
     //Endpoint pour créer un nouveau quiz.
