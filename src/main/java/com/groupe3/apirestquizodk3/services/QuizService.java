@@ -30,23 +30,23 @@ public class QuizService {
 
     // Récupèrer la liste de tous les quizzes d'un utilisateur.
     public List<Quiz> getQuizzesByUserId(Long userId) {
-        return quizRepository.findAllByUserUserId(userId);
+        return quizRepository.findByUserUserId(userId);
     }
 
     //Créer un nouveau quiz.
 
-    public Quiz createQuiz(Long userId, Quiz quiz) {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isPresent()){
+    public Quiz createQuiz(Quiz quiz, Long userId) {
+        Optional<User> user= userRepository.findById(userId);
+        if(user.isPresent()) {
             quiz.setUser(user.get());
             return quizRepository.save(quiz);
-        }
-        return null;
+        } else return  null;
+
     }
 
     // Pour rechercher des quizzes par titre
-    public List<Quiz> getQuizzesByTitle(String keyword) {
-        return quizRepository.findAllByTitleContaining(keyword);
+    public List<Quiz> getQuizzesByTitle(String title) {
+        return quizRepository.findByTitle(title);
     }
 
     // Pour rechercher un quiz par son identifiant (quizId)
@@ -68,7 +68,8 @@ public class QuizService {
         return quizRepository.findByCreationDate(creationDate);
     }
 
-    public Optional<Quiz> getQuizByUserIdAndQuizId(Long userId, Long quizId) {
-        return quizRepository.findByUserUserIdAndQuizId(userId,quizId);
+    public Optional<Quiz> getQuizzesByUserUserIdAndQuizId(Long userId, Long quizId) {
+        return quizRepository.findByUserUserIdAndQuizId(quizId,userId);
     }
+
 }
