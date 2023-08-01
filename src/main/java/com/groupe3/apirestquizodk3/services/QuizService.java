@@ -1,7 +1,9 @@
 package com.groupe3.apirestquizodk3.services;
 
 import com.groupe3.apirestquizodk3.models.Quiz;
+import com.groupe3.apirestquizodk3.models.User;
 import com.groupe3.apirestquizodk3.repositories.QuizRepository;
+import com.groupe3.apirestquizodk3.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.Optional;
 public class QuizService {
     @Autowired
     private  QuizRepository quizRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     //Récupèrer la liste de tous les quizzes.
     public List<Quiz> getAllQuizzes() {
@@ -26,18 +30,23 @@ public class QuizService {
 
     // Récupèrer la liste de tous les quizzes d'un utilisateur.
     public List<Quiz> getQuizzesByUserId(Long userId) {
-        return quizRepository.findByUserUserId(userId);
+        return quizRepository.findAllByUserUserId(userId);
     }
 
     //Créer un nouveau quiz.
 
-    public Quiz createQuiz(Quiz quiz) {
-        return quizRepository.save(quiz);
+    public Quiz createQuiz(Long userId, Quiz quiz) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()){
+            quiz.setUser(user.get());
+            return quizRepository.save(quiz);
+        }
+        return null;
     }
 
     // Pour rechercher des quizzes par titre
-    public List<Quiz> getQuizzesByTitle(String title) {
-        return quizRepository.findByTitle(title);
+    public List<Quiz> getQuizzesByTitle(String keyword) {
+        return quizRepository.findAllByTitleContaining(keyword);
     }
 
     // Pour rechercher un quiz par son identifiant (quizId)
@@ -59,7 +68,7 @@ public class QuizService {
         return quizRepository.findByCreationDate(creationDate);
     }
 
-    public Optional<Quiz> getQuizzesByUserUserIdAndQuizId(Long userId, Long quizId) {
-        return quizRepository.findByUserUserIdAndQuizId(quizId,userId);
+    public Optional<Quiz> getQuizByUserIdAndQuizId(Long userId, Long quizId) {
+        return quizRepository.findByUserUserIdAndQuizId(userId,quizId);
     }
 }

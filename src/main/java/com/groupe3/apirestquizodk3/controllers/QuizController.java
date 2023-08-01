@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("api/")
 public class QuizController {
     @Autowired
     private  QuizService quizService;
@@ -37,35 +37,33 @@ public class QuizController {
 
     //Endpoint pour récupérer la liste de tous les quizzes d'un utilisateur.
     @Operation(summary = "Ceci est la methode de l'endpoint pour recuperer la liste de tous les quizzes d'un utilisateur")
-    @GetMapping("/users/{userId}/quizzes")
-    public ResponseEntity<List<Quiz>> getQuizzesByUserId(@PathVariable Long userId) {
-        List<Quiz> quizzes = quizService.getQuizzesByUserId(userId);
-        return new ResponseEntity<>(quizzes, HttpStatus.OK);
+    @GetMapping("users/{userId}/quizzes")
+    public List<Quiz> getQuizzesByUserId(@PathVariable Long userId) {
+        return quizService.getQuizzesByUserId(userId);
     }
     @Operation(summary = "Ceci est la methode de l'endpoint pour recuperer un quiz precis d'un utilisateur precis")
-    @GetMapping("/users/{userId}/quizzes/{quizId}")
-    public ResponseEntity<Optional<Quiz>> getQuizzesByUserUserIdAndQuizId(@PathVariable Long userId, @PathVariable Long quizId) {
-        Optional<Quiz> quizze = quizService.getQuizzesByUserUserIdAndQuizId(userId, quizId);
-        return new ResponseEntity<>(quizze, HttpStatus.OK);
+    @GetMapping("users/{userId}/quizzes/{quizId}")
+    public ResponseEntity<Optional<Quiz>> getQuizByUserIdAndQuizId(@PathVariable Long userId, @PathVariable Long quizId) {
+        Optional<Quiz> quiz = quizService.getQuizByUserIdAndQuizId(userId, quizId);
+        return new ResponseEntity<>(quiz, HttpStatus.OK);
     }
     //Endpoint pour créer un nouveau quiz.
     @Operation(summary = "Ceci est la methode de l'endpoint pour creer un quiz")
-    @PostMapping("/users/{userId}/quizzes")
-    public ResponseEntity<Quiz> createQuiz(@PathVariable Long userId, @RequestBody Quiz quiz) {
-            Quiz createdQuiz = quizService.createQuiz(quiz);
-            return new ResponseEntity<>(createdQuiz, HttpStatus.CREATED);
+    @PostMapping("users/{userId}/quizzes")
+    public Quiz createQuiz(@PathVariable Long userId, @RequestBody Quiz quiz) {
+            return quizService.createQuiz(userId, quiz);
     }
 
 
     @Operation(summary = "Ceci est la methode de l'endpoint pour recuperer un quiz à travers son titre")
-    @GetMapping(params = "title")
+    @GetMapping(value = "quizzes", params = "title")
     public ResponseEntity<List<Quiz>> getQuizzesByTitle(@RequestParam("title") String title) {
         List<Quiz> quizzes = quizService.getQuizzesByTitle(title);
         return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
     @Operation(summary = "Ceci est la methode de l'endpoint pour recuperer un quiz à travers son Id")
-    @GetMapping(params = "quizId")
+    @GetMapping(value = "quizzes", params = "quizId")
     public ResponseEntity<Quiz> getQuizByQuizId(@RequestParam("quizId") Long quizId) {
         Optional<Quiz> quizOptional = quizService.getQuizByQuizId(quizId);
         return quizOptional.map(quiz -> new ResponseEntity<>(quiz, HttpStatus.OK))
@@ -73,21 +71,21 @@ public class QuizController {
     }
 
     @Operation(summary = "Ceci est la methode de l'endpoint pour recuperer un quiz à travers son nombre maximal de question")
-    @GetMapping(params = "nbMaxQuestion")
+    @GetMapping(value = "quizzes", params = "nbMaxQuestion")
     public ResponseEntity<List<Quiz>> getQuizzesByNbMaxQuestion(@RequestParam("nbMaxQuestion") int nbMaxQuestion) {
         List<Quiz> quizzes = quizService.getQuizzesByNbMaxQuestion(nbMaxQuestion);
         return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
     @Operation(summary = "Ceci est la methode de l'endpoint pour recuperer un quiz à travers sa portée")
-    @GetMapping(params = "visibility")
+    @GetMapping(value = "quizzes", params = "visibility")
     public ResponseEntity<List<Quiz>> getQuizzesByVisibility(@RequestParam("visibility") String visibility) {
         List<Quiz> quizzes = quizService.getQuizzesByVisibility(visibility);
         return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
     @Operation(summary = "Ceci est la methode de l'endpoint pour recuperer un quiz à travers sa date de creation")
-    @GetMapping(params = "creationDate")
+    @GetMapping(value = "quizzes", params = "creationDate")
     public ResponseEntity<List<Quiz>> getQuizzesByCreationDate(@RequestParam("creationDate") LocalDate creationDate) {
         List<Quiz> quizzes = quizService.getQuizzesByCreationDate(creationDate);
         return new ResponseEntity<>(quizzes, HttpStatus.OK);

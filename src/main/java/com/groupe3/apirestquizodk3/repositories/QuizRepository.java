@@ -12,13 +12,12 @@ import java.util.Optional;
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
     // Pour rechercher un quiz par titre
-    List<Quiz> findByTitle(String title);
+    List<Quiz> findAllByTitleContaining(String keyword);
 
     //Pour rechercher quiz par nb max de questions
     List<Quiz> findByNbMaxQuestion(Integer nbMaxQuestion);
 
     //Pour rechercher quiz par son ID
-    List<Quiz> findByQuizId(Long quiz_id);
 
     // Pour rechercher des quiz par visibilité
     List<Quiz> findByVisibility(String visibility);
@@ -26,7 +25,7 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
     //Pour rechercher des quiz par date de création
     List<Quiz> findByCreationDate(LocalDate creationDate);
 
-    List<Quiz> findByUserUserId(Long userId);
+    List<Quiz> findAllByUserUserId(Long userId);
 
     //******************************************************************************************return une quiz
     Optional<Quiz> findByUserUserIdAndQuizId(Long userId, Long quizId);
