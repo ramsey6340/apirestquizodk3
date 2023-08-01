@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> findAllByQuizQuizId(Long quizId);
-    Optional<Question> findByRank(int rank);
+    Optional<Question> findById(Long questionId);
     List<Question> findByQuizQuizIdAndQuizUserUserId(Long quizId, Long userId);
-    Question findByQuestionIdAndQuizQuizIdAndQuizUserUserId(Long questionId, Long quizId, Long userId);
+    Question findByquestionIdAndQuizQuizIdAndQuizUserUserId(Long questionId, Long quizId, Long userId);
 }
