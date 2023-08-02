@@ -1,4 +1,5 @@
 package com.groupe3.apirestquizodk3.services;
+import com.groupe3.apirestquizodk3.models.Choise;
 import com.groupe3.apirestquizodk3.models.Question;
 import com.groupe3.apirestquizodk3.models.Result;
 import com.groupe3.apirestquizodk3.repositories.ResultRepository;
@@ -52,8 +53,11 @@ public class ResultService {
         Optional<Question> question = questionService.getNextQuestion(userId, quizId);
         Optional<Result> result = getResultByUserIdAndQuizIdAndStateFalse(userId, quizId);
         if (question.isPresent() && result.isPresent()){
-            if (question.get().getRankResponse() == answer){
-                result.get().setScore(result.get().getScore()+question.get().getPoint());
+            Optional<Choise> choise = question.get().getChoises().stream().filter(c -> c.getRank()==answer).findFirst();
+            if (choise.isPresent()){
+                if (choise.get().isResponse()){
+                    result.get().setScore(result.get().getScore()+question.get().getPoint());
+                }
             }
             result.get().getQuestions().add(question.get());
             resultRepository.save(result.get());

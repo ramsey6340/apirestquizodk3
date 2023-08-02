@@ -26,6 +26,9 @@ public class Choise {
     @Column(name = "rang")
     private int rank;
 
+    @Column(name = "isReponse")
+    private boolean isResponse=false;
+
     @ManyToOne(
             cascade = CascadeType.ALL
     )

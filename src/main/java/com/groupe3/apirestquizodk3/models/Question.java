@@ -36,12 +36,6 @@ public class Question {
     @Column(name = "rang")
     private int rank; // le rang de la question. Elle est toujour inferieur ou égale au nombre de question dans le quiz
 
-    @NotNull(message = "rankResponse ne doit pas etre null")
-    @Min(value = 1, message = "rankResponse doit etre au minimum 1") // 1 parce qu'il y'a au moins une question
-    @Max(value = 6, message = "rankResponse doit etre au maximum 6") // 6 parce qu'il y'a au plus 6 question
-    @Column(name = "rangReponse")
-    private int rankResponse; // le rang du choix correspondant à la reponse
-
     @OneToMany(
             cascade = CascadeType.ALL, // Permet de s'assurer que tous changement effectué sur une question va impacter ses choix et vise versa
             orphanRemoval = true, // Permet de s'assurer que lorqu'on supprime une question par exemple, les choix seront aussi supprimer
