@@ -35,4 +35,6 @@ public class Choise {
     @JoinColumn(name = "question_id") // La clé etrangère de la classe Choose correspond à l'id de Question
     @JsonIgnore
     private Question question;
+
+
 }
