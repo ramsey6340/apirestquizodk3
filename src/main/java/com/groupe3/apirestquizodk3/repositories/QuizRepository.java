@@ -3,10 +3,9 @@ package com.groupe3.apirestquizodk3.repositories;
 import com.groupe3.apirestquizodk3.models.Quiz;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
+import java.util.Optional;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
@@ -18,6 +17,7 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
     List<Quiz> findByNbMaxQuestion(Integer nbMaxQuestion);
 
     //Pour rechercher quiz par son ID
+   Optional<Quiz> findByQuizId(Long quiz_id);
 
     // Pour rechercher des quiz par visibilité
     List<Quiz> findByVisibility(String visibility);

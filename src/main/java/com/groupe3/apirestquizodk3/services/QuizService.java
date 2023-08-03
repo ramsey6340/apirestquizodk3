@@ -30,7 +30,7 @@ public class QuizService {
 
     // Récupèrer la liste de tous les quizzes d'un utilisateur.
     public List<Quiz> getQuizzesByUserId(Long userId) {
-        return quizRepository.findByUserUserId(userId);
+        return quizRepository.findAllByUserUserId(userId);
     }
 
     //Créer un nouveau quiz.
@@ -46,7 +46,7 @@ public class QuizService {
 
     // Pour rechercher des quizzes par titre
     public List<Quiz> getQuizzesByTitle(String title) {
-        return quizRepository.findByTitle(title);
+        return quizRepository.findAllByTitleContaining(title);
     }
 
     // Pour rechercher un quiz par son identifiant (quizId)
