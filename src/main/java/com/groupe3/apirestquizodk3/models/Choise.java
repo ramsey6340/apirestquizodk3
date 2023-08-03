@@ -26,10 +26,15 @@ public class Choise {
     @Column(name = "rang")
     private int rank;
 
+    @Column(name = "isReponse")
+    private boolean isResponse=false;
+
     @ManyToOne(
             cascade = CascadeType.ALL
     )
     @JoinColumn(name = "question_id") // La clé etrangère de la classe Choose correspond à l'id de Question
     @JsonIgnore
     private Question question;
+
+
 }

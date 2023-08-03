@@ -1,4 +1,4 @@
-package com.group3.apirestquiz.config;
+package com.groupe3.apirestquizodk3.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
